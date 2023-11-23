@@ -1,5 +1,6 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
+#include "MacUILib.h"
 
 GameMechs::GameMechs()
 {
@@ -59,10 +60,12 @@ void GameMechs::IncrementScore()
 int GameMechs::getBoardSizeX()
 {
     return boardSizeX;
+    return boardSizeX;
 }
 
 int GameMechs::getBoardSizeY()
 {
+    return boardSizeY;
     return boardSizeY;
 }
 

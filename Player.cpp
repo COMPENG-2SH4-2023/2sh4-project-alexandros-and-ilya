@@ -8,12 +8,15 @@ Player::Player(GameMechs* thisGMRef)
 
     playerPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '@');
     // more actions to be included
+    playerPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,mainGameMechsRef->getBoardSizeY()/2,'@');
+//no heap member yet
 }
 
 
 Player::~Player()
 {
     // delete any heap members here
+    //leave empty until iteration 3
 }
 
 void Player::getPlayerPos(objPos &returnPos)

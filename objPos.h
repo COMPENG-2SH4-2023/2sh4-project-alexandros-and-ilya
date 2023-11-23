@@ -1,14 +1,14 @@
 #ifndef OBJPOS_H
 #define OBJPOS_H
 
-class objPos
+class objPos//you can't change this
 {
     public:
         int x;
         int y;
         char symbol;
 
-        objPos();
+        objPos();//default constructor
         objPos(objPos &o); // copy constructor
         objPos(int xPos, int yPos, char sym);
 
