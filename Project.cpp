@@ -1,13 +1,19 @@
 #include <iostream>
 #include "MacUILib.h"
 #include "objPos.h"
+#include "GameMechs.h"
+#include "player.h"
+
 
 
 using namespace std;
 
 #define DELAY_CONST 100000
 
+GameMechs* myGM;
+Player* myPlayer;
 bool exitFlag;
+objPos myPos;
 
 void Initialize(void);
 void GetInput(void);
@@ -23,7 +29,7 @@ int main(void)
 
     Initialize();
 
-    while(exitFlag == false)  
+    while(myGM->getExitFlagStatus() == false)  
     {
         GetInput();
         RunLogic();
@@ -40,23 +46,30 @@ void Initialize(void)
 {
     MacUILib_init();
     MacUILib_clearScreen();
+    
+    myGM= new GameMechs(26,13);//x+y board dimensions
+    myPlayer= new Player (myGM);
 
-    exitFlag = false;
 }
 
 void GetInput(void)
 {
-   
+
 }
 
 void RunLogic(void)
 {
-    
+    myPlayer->updatePlayerDir();
 }
 
 void DrawScreen(void)
 {
-    MacUILib_clearScreen();    
+    objPos tempPos;
+    myPlayer->getPlayerPos(tempPos);
+    MacUILib_clearScreen();  
+    MacUILib_printf("Board size = <%dx%d>, Player pos=<%d,%d> %c \n", 
+    myGM->getBoardSizeX(),myGM->getBoardSizeY(),
+    tempPos.x, tempPos.y, tempPos.symbol);  
 
 }
 
