@@ -25,8 +25,7 @@ int main(void)
 
     Initialize();
 
-    while(myGM->getExitFlagStatus() == false)  
-    while(myGM->getExitFlagStatus() == false)  
+    while(myGM->getExitFlagStatus() == false&& myGM->getLoseFlagStatus()== false)   
     {
         GetInput();
         RunLogic();
@@ -85,7 +84,8 @@ void DrawScreen(void)
             }
         }
         printf("\n");
-    }    
+    }
+    MacUILib_printf("%d",myGM->getScore());    
 
 }
 

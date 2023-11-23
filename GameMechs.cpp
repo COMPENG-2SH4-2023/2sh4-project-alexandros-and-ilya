@@ -9,6 +9,7 @@ GameMechs::GameMechs()
     loseFlag = false;
     boardSizeX = 20;
     boardSizeY = 10;
+    score=0;
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -18,6 +19,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     loseFlag = false;
     boardSizeX = 20;
     boardSizeY = 10;
+    score=0;
 }
 
 // do you need a destructor?

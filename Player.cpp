@@ -52,6 +52,14 @@ void Player::updatePlayerDir()
             if(myDir != LEFT && myDir != RIGHT)
                 myDir = RIGHT;
             break;
+        case 'k':
+        case 'K':
+            mainGameMechsRef->IncrementScore();
+            break;
+        case 't':
+        case 'T':
+            mainGameMechsRef->setLoseTrue();
+            break;
         default:
             break;
     }
@@ -80,3 +88,12 @@ void Player::movePlayer()
         playerPos.y = 1;
 }
 
+bool Player::checkFoodConsumption()
+{
+
+}
+
+bool Player::checkSelfCollision()
+{
+
+}
