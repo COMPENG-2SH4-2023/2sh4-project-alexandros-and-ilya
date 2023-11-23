@@ -10,12 +10,12 @@ objPosArrayList::objPosArrayList()
 
 objPosArrayList::~objPosArrayList()
 {
-
+    delete[] aList;
 }
 
 int objPosArrayList::getSize()
 {
-
+    return sizeList;
 }
 
 void objPosArrayList::insertHead(objPos thisPos)
