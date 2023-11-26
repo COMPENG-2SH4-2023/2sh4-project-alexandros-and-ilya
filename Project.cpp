@@ -43,20 +43,23 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    myGM = new GameMechs(30, 15);
+    myGM = new GameMechs(26, 13);
     myPlayer = new Player(myGM);
+    //think about where to generate food.
+    //generateFood requires player reference
 }
 
-void GetInput(void)
-{
+void GetInput(void){
    myGM->getInput();
+   //generate first food object
 }
 
 void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
     myPlayer->movePlayer();
-    myGM->clearInput();
+    //check collision,
+    myGM->clearInput();//so we don't repeatedly process the input
 }
 
 void DrawScreen(void)
@@ -72,20 +75,21 @@ void DrawScreen(void)
         {
             if(i == 0||j==0||i == myGM->getBoardSizeY()-1||j == myGM->getBoardSizeX()-1)
             {
-                printf("%c",'#');
+                MacUILib_printf("%c",'#');
             }
             else if(i == tempPos.y && j == tempPos.x)
             {
-                printf("%c", tempPos.symbol);
+                MacUILib_printf("%c", tempPos.symbol);
             }
             else
             {
-                printf("%c", ' ');
+                MacUILib_printf("%c", ' ');
             }
         }
-        printf("\n");
+        MacUILib_printf("\n");
     }
-    MacUILib_printf("%d",myGM->getScore());    
+    MacUILib_printf("%d\n",myGM->getScore());
+
 
 }
 

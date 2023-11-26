@@ -1,15 +1,18 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
-#include "MacUILib.h"
+#include <stdlib.h>
 
+//seed the RNG in the constructors
 GameMechs::GameMechs()
 {
     input = '\0';
     exitFlag = false;
     loseFlag = false;
-    boardSizeX = 20;
-    boardSizeY = 10;
+    boardSizeX = 26;
+    boardSizeY = 13;
     score=0;
+
+    foodPos.setObjPos(-1,-1,'o');//initialize foodPos offscreen
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -17,9 +20,11 @@ GameMechs::GameMechs(int boardX, int boardY)
     input = '\0';
     exitFlag = false;
     loseFlag = false;
-    boardSizeX = 20;
-    boardSizeY = 10;
+    boardSizeX = 26;
+    boardSizeY = 13;
     score=0;
+    foodPos.setObjPos(-1,-1,'o');//initialize foodPos offscreen
+
 }
 
 // do you need a destructor?
@@ -62,12 +67,10 @@ void GameMechs::IncrementScore()
 int GameMechs::getBoardSizeX()
 {
     return boardSizeX;
-    return boardSizeX;
 }
 
 int GameMechs::getBoardSizeY()
 {
-    return boardSizeY;
     return boardSizeY;
 }
 
@@ -92,4 +95,15 @@ void GameMechs::clearInput()
     input = '\0';
 }
 
+void GameMechs::generateFood(objPos blockOff)
+{
+    //generate random x and y coords and make
+    //sure that they are not border or blockOff
+    //check against bordersize x +y
+    //you have an isPosEqual() method in objPos
+}
+void GameMechs::getFoodPos(objPos &returnPos)
+{
+
+}
 
