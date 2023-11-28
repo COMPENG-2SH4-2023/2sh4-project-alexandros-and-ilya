@@ -8,7 +8,7 @@ GameMechs::GameMechs()
     input = '\0';
     exitFlag = false;
     loseFlag = false;
-    boardSizeX = 26;
+    boardSizeX = 26;//change these two variables when changing game board size
     boardSizeY = 13;
     score=0;
 
