@@ -6,8 +6,8 @@
 objPosArrayList::objPosArrayList()
 {
     aList = new objPos[ARRAY_MAX_CAP];
-    int ListSize = 0;
-    int ArrayCapacity = ARRAY_MAX_CAP;
+    sizeList = 0;
+    sizeArray = ARRAY_MAX_CAP;
 }
 
 objPosArrayList::~objPosArrayList()
@@ -17,54 +17,61 @@ objPosArrayList::~objPosArrayList()
 
 int objPosArrayList::getSize()
 {
-    int ListSize;
-    return ListSize;
+    return sizeList;
 }
 
 void objPosArrayList::insertHead(objPos thisPos)
 {
-    int ListSize;
-    int ArrayCapacity;
-    if(ListSize != ArrayCapacity)
+    if(sizeList != sizeArray && sizeList!=0)
     {
-        for(int i = ListSize; i > 0; i--)
+        for(int i = sizeList; i > 0; i--)
         {
             aList[i].setObjPos(aList[i-1]);
         }
 
         aList[0].setObjPos(thisPos);
 
-        ListSize++;
+        sizeList++;
     }
-
+    if (sizeList==0)
+    {
+        aList[0].setObjPos(thisPos);
+        sizeList++;
+    }
 }
 
 void objPosArrayList::insertTail(objPos thisPos)
 {
-    int ListSize;
-    int ArrayCapacity;
-    if(ListSize != ArrayCapacity)
+    if(sizeList != sizeArray)
     {
-        aList[ListSize++].setObjPos(thisPos);
+        aList[sizeList++].setObjPos(thisPos);
     }
 
 }
 
 void objPosArrayList::removeHead()
 {
-    int ListSize;
-    for(int i = 0; i < ListSize - 1; i++)
+    if (sizeList > 1)
     {
-        aList[i] = aList[i+1];
-    }
+        for (int i = 0; i < sizeList - 1; i++)
+        {
+            aList[i] = aList[i + 1];
+        }
 
-    ListSize--;
+        sizeList--;
+    }
+    if (sizeList == 1)
+    {
+        sizeList--;
+    }
 }
 
 void objPosArrayList::removeTail()
 {
-    int ListSize;
-    ListSize--;
+    if (sizeList>0)
+    {
+    sizeList--;//"lazy deletion" (saves computation time)
+    }
 }
 
 void objPosArrayList::getHeadElement(objPos &returnPos)
@@ -74,8 +81,7 @@ void objPosArrayList::getHeadElement(objPos &returnPos)
 
 void objPosArrayList::getTailElement(objPos &returnPos)
 {
-    int ListSize;
-    returnPos.setObjPos(aList[ListSize-1]);
+    returnPos.setObjPos(aList[sizeList-1]);
 }
 
 void objPosArrayList::getElement(objPos &returnPos, int index)

@@ -25,7 +25,7 @@ int main(void)
 
     Initialize();
 
-    while(myGM->getExitFlagStatus() == false&& myGM->getLoseFlagStatus()== false)   
+    while(myGM->getExitFlagStatus() == false && myGM->getLoseFlagStatus()== false)   
     {
         GetInput();
         RunLogic();
