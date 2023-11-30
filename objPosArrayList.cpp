@@ -22,7 +22,7 @@ int objPosArrayList::getSize()
 
 void objPosArrayList::insertHead(objPos thisPos)
 {
-    if(sizeList != sizeArray && sizeList!=0)
+    if(sizeList != sizeArray && sizeList>0)
     {
         for(int i = sizeList; i > 0; i--)
         {
@@ -33,10 +33,10 @@ void objPosArrayList::insertHead(objPos thisPos)
 
         sizeList++;
     }
-    if (sizeList==0)
+    if (sizeList<=0)
     {
         aList[0].setObjPos(thisPos);
-        sizeList++;
+        sizeList=1;
     }
 }
 
@@ -60,9 +60,9 @@ void objPosArrayList::removeHead()
 
         sizeList--;
     }
-    if (sizeList == 1)
+    if (sizeList <= 1)
     {
-        sizeList--;
+        sizeList = 0;
     }
 }
 
@@ -70,7 +70,11 @@ void objPosArrayList::removeTail()
 {
     if (sizeList>0)
     {
-    sizeList--;//"lazy deletion" (saves computation time)
+        sizeList--;//"lazy deletion" (saves computation time)
+    }
+    if(sizeList<=0)
+    {
+        sizeList = 0;
     }
 }
 

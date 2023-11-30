@@ -1,35 +1,37 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
-#include <stdlib.h>
+#include "MacUILib.h"
 
-//seed the RNG in the constructors
 GameMechs::GameMechs()
 {
     input = '\0';
+    score = 0;
     exitFlag = false;
     loseFlag = false;
-    boardSizeX = 26;//change these two variables when changing game board size
-    boardSizeY = 13;
-    score=0;
+    boardSizeX = 30;
+    boardSizeY = 15;
 
-    foodPos.setObjPos(-1,-1,'o');//initialize foodPos offscreen
+    foodPos.setObjPos(-1, -1, 'o');
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
     input = '\0';
+    score = 0;
     exitFlag = false;
     loseFlag = false;
-    boardSizeX = 26;
-    boardSizeY = 13;
-    score=0;
-    foodPos.setObjPos(-1,-1,'o');//initialize foodPos offscreen
+    boardSizeX = 30;
+    boardSizeY = 15;
 
+    foodPos.setObjPos(-1, -1, 'o');
 }
 
 // do you need a destructor?
 
-
+GameMechs::~GameMechs()
+{
+    
+}
 
 bool GameMechs::getExitFlagStatus()
 {
@@ -67,13 +69,44 @@ void GameMechs::IncrementScore()
 int GameMechs::getBoardSizeX()
 {
     return boardSizeX;
+    return boardSizeX;
 }
 
 int GameMechs::getBoardSizeY()
 {
     return boardSizeY;
+    return boardSizeY;
 }
 
+void GameMechs::getFoodPos(objPos &returnPos)
+{
+    returnPos.setObjPos(foodPos.x, foodPos.y, foodPos.symbol);
+}
+
+void GameMechs::generateFood(objPosArrayList* blockOff)
+{
+    foodPos.symbol = 'o';
+    bool StuckFlag = true;
+    objPos tempBody;
+
+    while(StuckFlag)
+    {
+        StuckFlag = false;
+
+        foodPos.x = rand()%(getBoardSizeX()-2)+1;   
+        foodPos.y = rand()%(getBoardSizeY()-2)+1;
+
+        for(int k = 0; k < blockOff->getSize(); k++)
+        {
+            blockOff->getElement(tempBody, k);
+            if(foodPos.x == tempBody.x && foodPos.y == tempBody.y)
+            {
+                StuckFlag = true;
+            }
+        }
+    }
+
+}
 
 void GameMechs::setExitTrue()
 {
@@ -94,16 +127,3 @@ void GameMechs::clearInput()
 {
     input = '\0';
 }
-
-void GameMechs::generateFood(objPos blockOff)
-{
-    //generate random x and y coords and make
-    //sure that they are not border or blockOff
-    //check against bordersize x +y
-    //you have an isPosEqual() method in objPos
-}
-void GameMechs::getFoodPos(objPos &returnPos)
-{
-
-}
-
