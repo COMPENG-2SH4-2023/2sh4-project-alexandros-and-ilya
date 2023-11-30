@@ -88,17 +88,23 @@ void Player::movePlayer()
     else if(currentHead.y == mainGameMechsRef->getBoardSizeY()-1)
         currentHead.y = 1;
 
-    selfcollisionFlag = checkSelfCollision();
-
     playerPosList->insertHead(currentHead);
+
     eatenFlag = checkFoodConsumption();
     if(eatenFlag)
     {
         mainGameMechsRef->IncrementScore();
-        playerPosList->insertHead(currentHead);
+        playerPosList->insertTail(currentHead);
         mainGameMechsRef->generateFood(playerPosList);
     }
     playerPosList->removeTail();
+
+    selfcollisionFlag = checkSelfCollision();
+    if(selfcollisionFlag)
+    {
+        mainGameMechsRef->setLoseTrue();
+    }
+
 }
 
 bool Player::checkFoodConsumption()
@@ -121,6 +127,21 @@ bool Player::checkFoodConsumption()
 
 bool Player::checkSelfCollision()
 {
+    objPos tempHead;
+    objPos bodyPart;
+    
+    playerPosList->getHeadElement(tempHead);
 
+    for(int i = 1; i < playerPosList->getSize(); i++)
+    {
+        playerPosList->getElement(bodyPart, i);
+        if(bodyPart.x == tempHead.x && bodyPart.y == tempHead.y)
+        {
+            return true;
+        }
+    }
+
+    return false;
+    
 }
 
