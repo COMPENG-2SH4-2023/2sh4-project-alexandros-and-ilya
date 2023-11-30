@@ -130,7 +130,6 @@ void DrawScreen(void)
     }    
 
     MacUILib_printf("Score is equal to %d\n", myGM->getScore());
-    MacUILib_printf("The location of the point is at x = %d, y = %d\n", objFoodPos.x, objFoodPos.y);
     MacUILib_printf("\nPress SPACE to exit");
 
 }
