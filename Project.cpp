@@ -27,12 +27,26 @@ int main(void)
 
     Initialize();
  
-    while(myGM->getExitFlagStatus() == false && myGM->getLoseFlagStatus() == false)  
+    while(myGM->getExitFlagStatus() == false && myGM->getLoseFlagStatus() == false
+    && myGM->getScore()<364 )
     {
         GetInput();
         RunLogic();
         DrawScreen();
         LoopDelay();
+    }
+    while (myGM->getLoseFlagStatus()==true && myGM->getExitFlagStatus() == false)
+    {
+        GetInput();
+        MacUILib_clearScreen();
+        MacUILib_printf("Your score was %d\nPress SPACE to exit",myGM->getScore());   
+    }
+    while(myGM->getScore()==364 && myGM->getExitFlagStatus() == false)//this is for when the player's
+    //snake reaches the maximum allowable size to avoid error
+    {
+        GetInput();
+        MacUILib_clearScreen();
+        MacUILib_printf("You got the maximum possible score (364)! \nCongratulations!\nPress SPACE to exit");
     }
 
     CleanUp();
@@ -112,11 +126,12 @@ void DrawScreen(void)
                 MacUILib_printf("%c", ' ');
             }
         }
-        printf("\n");
+        MacUILib_printf("\n");
     }    
 
-    printf("Score is equal to %d\n", myGM->getScore());
-    printf("The location of the point is at x = %d, y = %d\n", objFoodPos.x, objFoodPos.y);
+    MacUILib_printf("Score is equal to %d\n", myGM->getScore());
+    MacUILib_printf("The location of the point is at x = %d, y = %d\n", objFoodPos.x, objFoodPos.y);
+    MacUILib_printf("\nPress SPACE to exit");
 
 }
 
