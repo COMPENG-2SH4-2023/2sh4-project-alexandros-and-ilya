@@ -1,7 +1,7 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
 #include "MacUILib.h"
-
+//these methods are pretty intuitive
 GameMechs::GameMechs()
 {
     input = '\0';
@@ -11,7 +11,8 @@ GameMechs::GameMechs()
     boardSizeX = 30;
     boardSizeY = 15;
 
-    foodPos.setObjPos(-1, -1, 'o');
+    foodPos.setObjPos(-1, -1, 'o');//in default constructor, keeps food out of
+    //player's reach
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -26,11 +27,11 @@ GameMechs::GameMechs(int boardX, int boardY)
     foodPos.setObjPos(-1, -1, 'o');
 }
 
-// do you need a destructor?
+
 
 GameMechs::~GameMechs()
 {
-    
+    //no memory allocated in this class!
 }
 
 bool GameMechs::getExitFlagStatus()
@@ -51,7 +52,7 @@ char GameMechs::getInput()
     }
 
     if(input == ' ')
-        setExitTrue();
+        setExitTrue();//exit key is SPACE
 
     return input;
 }
@@ -69,12 +70,10 @@ void GameMechs::IncrementScore()
 int GameMechs::getBoardSizeX()
 {
     return boardSizeX;
-    return boardSizeX;
 }
 
 int GameMechs::getBoardSizeY()
 {
-    return boardSizeY;
     return boardSizeY;
 }
 
@@ -85,13 +84,13 @@ void GameMechs::getFoodPos(objPos &returnPos)
 
 void GameMechs::generateFood(objPosArrayList* blockOff)
 {
-    foodPos.symbol = 'o';
     bool StuckFlag = true;
     objPos tempBody;
 
-    while(StuckFlag)
+    while(StuckFlag)//prevents food from generating on top of the player
     {
-        StuckFlag = false;
+        StuckFlag = false;/*StuckFlag is set to true when an object is generated on the 
+player body*/
 
         foodPos.x = rand()%(getBoardSizeX()-2)+1;   
         foodPos.y = rand()%(getBoardSizeY()-2)+1;

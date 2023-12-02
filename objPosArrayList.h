@@ -1,7 +1,8 @@
 #ifndef OBJPOS_ARRAYLIST_H
 #define OBJPOS_ARRAYLIST_H
 
-#define ARRAY_MAX_CAP 200//change this when changing board dimensions
+#define ARRAY_MAX_CAP 364 //change this when changing board dimensions
+//(#of x coordinates-2) x (#of y coordinates-2)
 
 #include "objPos.h"
 

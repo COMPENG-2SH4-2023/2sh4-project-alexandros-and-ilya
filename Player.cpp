@@ -8,17 +8,15 @@ Player::Player(GameMechs* thisGMRef)
 
     objPos tempPos;
     tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '@');
-    // more actions to be included
+    // starting position is in the middle of the screen. Our head will always be a '@'
     playerPosList = new objPosArrayList();
     playerPosList->insertHead(tempPos);
-//no heap member yet
 }
 
 
 Player::~Player()
 {
-    // delete any heap members here
-    //leave empty until iteration 3
+
     delete playerPosList;
 }
 
@@ -79,7 +77,7 @@ void Player::movePlayer()
     else if(myDir == RIGHT)
         currentHead.x++;
 
-    if(currentHead.x == 0) 
+    if(currentHead.x == 0) //wraparound conditions
         currentHead.x = mainGameMechsRef->getBoardSizeX()-2;
     else if(currentHead.x == mainGameMechsRef->getBoardSizeX()-1)
         currentHead.x = 1;
@@ -94,7 +92,8 @@ void Player::movePlayer()
     if(eatenFlag)
     {
         mainGameMechsRef->IncrementScore();
-        playerPosList->insertTail(currentHead);
+        playerPosList->insertTail(currentHead);//if we insert to head, that would register
+        //as a snake suicide since the snake would just move into its own head
         mainGameMechsRef->generateFood(playerPosList);
     }
     playerPosList->removeTail();
@@ -114,6 +113,7 @@ bool Player::checkFoodConsumption()
 
     mainGameMechsRef->getFoodPos(tempFood);
     playerPosList->getHeadElement(tempHead);
+    //food consumption occurs only when the head of the snake passes over a food object
 
     if(tempFood.x == tempHead.x && tempFood.y == tempHead.y)
     {
@@ -130,7 +130,8 @@ bool Player::checkSelfCollision()
     objPos tempHead;
     objPos bodyPart;
     
-    playerPosList->getHeadElement(tempHead);
+    playerPosList->getHeadElement(tempHead);//only the head can collide with the body
+    //so we really only care about the position of the head
 
     for(int i = 1; i < playerPosList->getSize(); i++)
     {

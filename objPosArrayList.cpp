@@ -1,13 +1,13 @@
 #include "objPosArrayList.h"
 
-// Check lecture contents on general purpose array list construction, 
-// and modify it to support objPos array list construction.
+// objPosArrayLists are array lists where each member is of type objPos
 
 objPosArrayList::objPosArrayList()
 {
     aList = new objPos[ARRAY_MAX_CAP];
     sizeList = 0;
-    sizeArray = ARRAY_MAX_CAP;
+    sizeArray = ARRAY_MAX_CAP;//we want the player to be able to fill the entire board assuming
+    //they are good enough at Snake
 }
 
 objPosArrayList::~objPosArrayList()

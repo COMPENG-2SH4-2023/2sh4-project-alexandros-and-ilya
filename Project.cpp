@@ -4,7 +4,7 @@
 #include "objPosArrayList.h"
 #include "GameMechs.h"
 #include "Player.h"
-#include "time.h"
+#include "time.h"//needed to seed the random number generator
 
 using namespace std;
 
@@ -28,7 +28,7 @@ int main(void)
     Initialize();
  
     while(myGM->getExitFlagStatus() == false && myGM->getLoseFlagStatus() == false
-    && myGM->getScore()<364 )
+    && myGM->getScore()<364 )//regular function flow during regular program operation
     {
         GetInput();
         RunLogic();
@@ -36,7 +36,7 @@ int main(void)
         LoopDelay();
     }
     while (myGM->getLoseFlagStatus()==true && myGM->getExitFlagStatus() == false)
-    {
+    {//Player suicide condition
         GetInput();
         MacUILib_clearScreen();
         MacUILib_printf("Your score was %d\nPress SPACE to exit",myGM->getScore());   
@@ -59,10 +59,10 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    myGM = new GameMechs(30, 15);
+    myGM = new GameMechs(30, 15);//board size of 30x15
     myPlayer = new Player(myGM);
 
-    srand((unsigned)time(&t));
+    srand((unsigned)time(&t));//seeding the time for true random number generation
 
     objPosArrayList* playerBody = myPlayer->getPlayerPos();
     myGM->generateFood(playerBody);
@@ -105,7 +105,7 @@ void DrawScreen(void)
                 playerBody->getElement(tempBody, k);
                 if(tempBody.x == j && tempBody.y == i)
                 {
-                    MacUILib_printf("%c", tempBody.symbol);
+                    MacUILib_printf("%c", tempBody.symbol);//draws the snake itself
                     drawn = true;
                     break;
                 }
@@ -115,15 +115,15 @@ void DrawScreen(void)
 
             if(i == 0||j==0||i == myGM->getBoardSizeY()-1||j == myGM->getBoardSizeX()-1)
             {
-                MacUILib_printf("%c",'#');
+                MacUILib_printf("%c",'#');//draws border
             }
             else if(i == objFoodPos.y && j == objFoodPos.x)
             {
-                MacUILib_printf("%c", objFoodPos.symbol);
+                MacUILib_printf("%c", objFoodPos.symbol);//draws food
             }
             else
             {
-                MacUILib_printf("%c", ' ');
+                MacUILib_printf("%c", ' ');//draws empty slots
             }
         }
         MacUILib_printf("\n");
@@ -142,10 +142,9 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
+    delete myGM;
+    delete myPlayer;//prevents memory leaks
     MacUILib_clearScreen();    
   
     MacUILib_uninit();
-
-    delete myGM;
-    delete myPlayer;
 }
